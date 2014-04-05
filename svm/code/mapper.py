@@ -7,8 +7,8 @@ import numpy as np
 
 FEATURE_SIZE = 400
 SEPARATOR = ' '
-LAMBDA = 0.001
-LEARNING_RATE = 0.001
+LAMBDA = 1
+LEARNING_RATE = 1
 
 
 def transform(x_original):
