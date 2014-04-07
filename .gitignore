@@ -1,1 +1,7 @@
 .idea
+
+*.pyc
+training
+training_*
+weights.txt
+*.DS_Store
