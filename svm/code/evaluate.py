@@ -8,19 +8,23 @@ import numpy as np
 # So we can use the same feature vectors.
 from mapper import transform
 
+
 if __name__ == "__main__":
     if not len(sys.argv) == 4:
         logging.error("Usage: evaluate.py weights.txt "
                       "test_data.txt test_labels.txt")
         sys.exit(1)
+    arg_weights = sys.argv[1]
+    arg_data = sys.argv[2]
+    arg_label = sys.argv[3]
 
-    with open(sys.argv[1], "r") as fp_weights:
+    with open(arg_weights, "r") as fp_weights:
         weights = np.genfromtxt(fp_weights).flatten()
 
     accuracy = 0
     total = 0
-    with open(sys.argv[2], "r") as fp_data:
-        with open(sys.argv[3], "r") as fp_labels:
+    with open(arg_data, "r") as fp_data:
+        with open(arg_label, "r") as fp_labels:
             for (x_string, label_string) in zip(fp_data, fp_labels):
                 x_string = x_string.strip()
                 label_string = label_string.strip()
@@ -39,10 +43,10 @@ if __name__ == "__main__":
                     logging.error("Shapes of weight vector and transformed "
                                   "data don't match")
                     sys.exit(3)
-                if (np.inner(weights, x) < 0):
-                    print -1
-                else:
-                    print 1
+                #if (np.inner(weights, x) < 0):
+                #    print -1
+                #else:
+                #    print 1
                 if label*np.inner(weights, x) >= 0:
 
                     accuracy += 1

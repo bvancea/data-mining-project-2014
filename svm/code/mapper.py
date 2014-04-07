@@ -7,11 +7,16 @@ import numpy as np
 
 FEATURE_SIZE = 400
 SEPARATOR = ' '
-LAMBDA = 1
-LEARNING_RATE = 1
+LAMBDA = 1.0
+LEARNING_RATE = 97.0
+#LAMBDA = 4.0
+#LEARNING_RATE = 1
 
 
 def transform(x_original):
+    #x_2 = np.power(x_original, 2)
+    x_2 = np.sqrt(x_original)
+    x_original = np.append(x_original, x_2)
     return x_original
 
 
@@ -20,23 +25,24 @@ def process_line(line):
     label, features = line.split(SEPARATOR, 1)
     y = int(label)
     x = np.fromstring(features, sep=SEPARATOR)
-    x = np.mat(x)
+    x = transform(x)
     return x, y
 
 
 def perform_descent_step(w, x, y):
-    if y * w * x.transpose() < 1:
+    if y * np.inner(x, w) < 1:
         w_prime = w + LEARNING_RATE * y * x
-        w_projection = 1 / np.sqrt(LAMBDA, w_prime * w_prime.transpose())
-        w = w_prime * min(1, w_projection)
+        #prod = np.inner(w_prime, w_prime)
+        #prod = np.array(prod)[0][0]
+        prod = 1
+        w_projection = 1.0 / np.sqrt(LAMBDA * prod)
+        w = w_prime * min(1.0, w_projection)
     return w
 
 
 def main():
-    w = np.zeros(FEATURE_SIZE)
-    w = np.mat(w)
+    w = np.zeros(FEATURE_SIZE * 2)
 
-    #TODO randomly pick points
     for line in sys.stdin:
         x, y = process_line(line)
         w = perform_descent_step(w, x, y)
