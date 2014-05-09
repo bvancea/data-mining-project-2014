@@ -9,7 +9,7 @@ POINTS = 6667
 def main():
     aggr_features = None
     count = 0
-    indexes = np.random.random_integers(0, POINTS, 400)
+    indexes = np.random.random_integers(0, POINTS, 100)
     indexes = sorted(indexes)
     for line in sys.stdin:
         if count in indexes:
