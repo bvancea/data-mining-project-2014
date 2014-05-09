@@ -1,25 +1,28 @@
 #!/usr/bin/env python2.7
 import sys
 import numpy as np
+from sklearn import cluster
 
-MAPPERS = 300
+CLUSTERS = 200
+ITERATIONS = 25
 
 
 def main():
-    centers = {}
+    kmeans = cluster.KMeans(n_clusters=CLUSTERS, max_iter=ITERATIONS)
+    points = None
     for line in sys.stdin:
         line = line.strip()
         key, value = line.split("\t")
-        center_point = np.array(eval(value))
-
-        if key in centers:
-            centers[key] = centers[key] + center_point/300
+        point = np.array(eval(value))
+        if points is None:
+            points = point
         else:
-            centers[key] = center_point/300
+            points = np.vstack((points, point))
 
-    for key in centers:
-        center_value = [x for x in centers[key]]
-        print(' '.join(map(str, center_value)))
+    kmeans.fit(points)
+
+    for center in kmeans.cluster_centers_:
+        print(' '.join(map(str, center)))
 
 if __name__ == "__main__":
     main()
