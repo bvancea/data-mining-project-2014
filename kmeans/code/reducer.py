@@ -34,24 +34,6 @@ def online_kmeans(data, weights, n_clusters, n_points):
     return centers
 
 
-def compute_cost(data, n_points, centers):
-    cost = 0
-    for point in data:
-        min_value = sys.maxint
-        index = 0
-
-        #find nearest center
-        for center in centers:
-            dist = euclidean(center, point)
-            if dist < min_value:
-                min_value = dist
-            index += 1
-        cost += (min_value * min_value)
-
-    cost = cost / n_points
-    return cost
-
-
 def main():
     points = None
     count = 0
@@ -72,8 +54,6 @@ def main():
 
     for center in centers:
         print(' '.join(map(str, center)))
-
-    #print "Cost: %d" % compute_cost(points, count, centers)
 
 
 if __name__ == "__main__":
