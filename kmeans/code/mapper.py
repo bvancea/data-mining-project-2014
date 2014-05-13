@@ -12,6 +12,5 @@ def main():
         value = features.tolist()
         print "%s\t%s" % (1, value)
 
-
 if __name__ == "__main__":
     main()
