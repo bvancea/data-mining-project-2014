@@ -5,8 +5,8 @@ import numpy as np
 from scipy.spatial.distance import cdist
 
 SEPARATOR = ' '
-NR_SAMPLES = 100
-NR_CORESETS = 1000
+NR_SAMPLES = 212
+NR_CORESETS = 2048
 
 
 def simple_adaptive_sampling(data, n_points):
